@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -43,6 +44,9 @@ public class UserServlet extends HttpServlet {
                     break;
                 case "/update":
                     updateUser(request, response);
+                    break;
+                case "/login":
+                    loginUser(request, response);
                     break;
                 default:
                     listUser(request, response);
@@ -104,5 +108,27 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("userDetails.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private boolean loginUser(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+        boolean status = false;
+        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+        dispatcher.forward(request, response);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        User loguser = new User(email, password);
+        loguser.setEmail(email);
+        loguser.setEmail(password);
+        try {
+            if (userDao.validate(loguser)) {
+                response.sendRedirect("loginsuccess.jsp");
+            } else {
+                HttpSession session = request.getSession();
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return status;
     }
 }

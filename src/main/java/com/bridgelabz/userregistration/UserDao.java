@@ -17,6 +17,7 @@ public class UserDao {
     private static final String SELECT_ALL_USERS = "select * from user";
     private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
     private static final String UPDATE_USERS_SQL = "update user set firstName = ?, lastName = ?, email = ?, password = ?, phoneNumber = ? where id = ?;";
+    private static final String SELECT_PERSON_QUERY = "select * from UserDetails where email = ? and password = ?";
 
     public UserDao() {
     }
@@ -113,6 +114,38 @@ public class UserDao {
             updateUser = statement.executeUpdate() > 0;
         }
         return updateUser;
+    }
+
+    public int loginuser(User user) {
+        int count = 0;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PERSON_QUERY)){
+            int counter = 1;
+            preparedStatement.setString(counter++, user.getEmail());
+            preparedStatement.setString(counter, user.getPassword());
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public boolean validate(User loguser) throws ClassNotFoundException {
+        boolean status = false;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PERSON_QUERY)){
+            preparedStatement.setString(1, loguser.getEmail());
+            preparedStatement.setString(2, loguser.getPassword());
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            status = rs.next();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return status;
     }
 
     private void printSQLException(SQLException ex) {
