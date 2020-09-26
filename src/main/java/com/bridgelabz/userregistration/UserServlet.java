@@ -76,7 +76,7 @@ public class UserServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String phoneNumber = request.getParameter("phoneNumber");
-        User book = new User(id,firstName,lastName, email, password,phoneNumber);
+        User book = new User(id, firstName, lastName, email, password, phoneNumber);
         userDao.updateUser(book);
         response.sendRedirect("list");
     }

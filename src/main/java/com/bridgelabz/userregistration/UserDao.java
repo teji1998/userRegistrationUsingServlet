@@ -10,13 +10,13 @@ public class UserDao {
     private String jdbcUsername = "root";
     private String jdbcPassword = "teju1998";
 
-    private static final String INSERT_USERS_SQL = "INSERT INTO user" + "  (firstName,lastName,email,password,phoneNumber) VALUES "
+    private static final String INSERT_USERS_SQL = "INSERT INTO user" + "  (firstName, lastName, email, password, phoneNumber) VALUES "
             + " (?, ?, ?,?,?);";
 
-    private static final String SELECT_USER_BY_ID = "select id,firstName,lastName,email,password,phoneNumber from user where id =?";
+    private static final String SELECT_USER_BY_ID = "select id, firstName, lastName, email, password, phoneNumber from user where id =?";
     private static final String SELECT_ALL_USERS = "select * from user";
     private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
-    private static final String UPDATE_USERS_SQL = "update user set firstName = ?,lastName = ?, email = ?, password = ?,phoneNumber = ? where id = ?;";
+    private static final String UPDATE_USERS_SQL = "update user set firstName = ?, lastName = ?, email = ?, password = ?, phoneNumber = ? where id = ?;";
 
     public UserDao() {
     }
