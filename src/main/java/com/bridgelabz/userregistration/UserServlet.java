@@ -59,7 +59,14 @@ public class UserServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void insertUser(HttpServletRequest request, HttpServletResponse response) {
+    private void insertUser(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        User existingUser = userDao.selectUser(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
+        request.setAttribute("user", existingUser);
+        dispatcher.forward(request, response);
+
     }
 
     private void updateUser(HttpServletRequest request, HttpServletResponse response) {
