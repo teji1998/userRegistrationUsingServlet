@@ -95,6 +95,7 @@ public class UserServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         userDao.deleteUser(id);
         response.sendRedirect("list");
+
     }
 
     private void listUser(HttpServletRequest request, HttpServletResponse response)
