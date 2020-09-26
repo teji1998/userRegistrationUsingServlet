@@ -90,7 +90,11 @@ public class UserServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response) {
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        userDao.deleteUser(id);
+        response.sendRedirect("list");
     }
 
     private void listUser(HttpServletRequest request, HttpServletResponse response)
