@@ -29,12 +29,12 @@ public class UserServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getServletPath();
+        String path = request.getServletPath();
 
         try {
-            switch (action) {
+            switch (path) {
                 case "/new":
-                    showNewForm(request, response);
+                    newData(request, response);
                     break;
                 case "/insert":
                     insertUser(request, response);
@@ -43,7 +43,7 @@ public class UserServlet extends HttpServlet {
                     deleteUser(request, response);
                     break;
                 case "/edit":
-                    showEditForm(request, response);
+                    editData(request, response);
                     break;
                 case "/update":
                     updateUser(request, response);
@@ -60,7 +60,7 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+    private void newData(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
         dispatcher.forward(request, response);
@@ -83,12 +83,12 @@ public class UserServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String phoneNumber = request.getParameter("phoneNumber");
-        User book = new User(id, firstName, lastName, email, password, phoneNumber);
-        userDao.updateUser(book);
+        User user = new User(id, firstName, lastName, email, password, phoneNumber);
+        userDao.updateUser(user);
         response.sendRedirect("list");
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+    private void editData(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         User existingUser = userDao.selectUser(id);
