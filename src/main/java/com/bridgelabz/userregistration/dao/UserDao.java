@@ -1,4 +1,6 @@
-package com.bridgelabz.userregistration;
+package com.bridgelabz.userregistration.dao;
+
+import com.bridgelabz.userregistration.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;

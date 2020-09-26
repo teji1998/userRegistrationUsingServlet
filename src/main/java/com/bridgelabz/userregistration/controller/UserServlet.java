@@ -1,4 +1,7 @@
-package com.bridgelabz.userregistration;
+package com.bridgelabz.userregistration.controller;
+
+import com.bridgelabz.userregistration.dao.UserDao;
+import com.bridgelabz.userregistration.model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
